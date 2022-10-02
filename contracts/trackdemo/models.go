@@ -75,7 +75,7 @@ type ManufactureAssetRequest struct {
 	AssetType         string `json:"assetType"`
 	Location          string `json:"location"`
 	Manufacturer      string `json:"manufacturer"`
-	PublicDescription string `json:"publicDescription,omitempty"`
+	PublicDescription string `json:"publicDescription" metadata:",optional"`
 }
 
 type TransferAssetRequest struct {

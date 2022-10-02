@@ -65,7 +65,6 @@ func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) 
 
 // Manufacture asset
 func (s *SmartContract) Manufacture(ctx contractapi.TransactionContextInterface, request ManufactureAssetRequest) error {
-
 	fmt.Println("1.  ", request)
 	exists, err := s.AssetExists(ctx, request.ID)
 	fmt.Println("2.  ")
@@ -151,14 +150,18 @@ func (s *SmartContract) ReadAsset(ctx contractapi.TransactionContextInterface, r
 
 // UpdateAsset updates an existing asset in the world state with provided parameters.
 func (s *SmartContract) UpdateAsset(ctx contractapi.TransactionContextInterface, request UpdateDataAssetRequest) error {
+	fmt.Println("1.1 *****    ", request)
 	asset, err := s.ReadAsset(ctx, ReadAssetRequest{request.ID})
+	fmt.Println("1.2 *****    ", err)
 	if err != nil {
 		return err
 	}
 
+	fmt.Println("1.3 *****    ")
 	if request.Location == "" && request.Data == "" && request.PublicDescription == "" {
 		return fmt.Errorf("invalid request")
 	}
+	fmt.Println("1 *****    ", request)
 
 	// overwritting original asset with new asset
 	if request.Location != "" {
@@ -169,11 +172,14 @@ func (s *SmartContract) UpdateAsset(ctx contractapi.TransactionContextInterface,
 		asset.PublicDescription = request.PublicDescription
 	}
 
+	fmt.Println("2 *****    ")
 	if request.Data != "" {
 		if valid := json.Valid([]byte(request.Data)); !valid {
 			return errors.New("invalid JSON encoding: payload missing or invalid")
 		}
+		fmt.Println("3 *****    ")
 		asset.Data = []byte(request.Data)
+		fmt.Println("4 *****    ")
 		//asset.Data = request.Data
 	}
 
