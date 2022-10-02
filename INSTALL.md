@@ -10,9 +10,9 @@ Because we will run our chaincode as an external service, the chaincode itself d
 package that gets installed to each peer. Only the configuration and metadata information needs to be included
 in the package. Since the packaging is trivial, we can manually create the chaincode package.
 
-Open a new terminal and navigate to the `cc-template-go` directory.
+Open a new terminal and navigate to the `cc-trackdemo-go` directory.
 ```
-cd cc-template-go
+cd cc-trackdemo-go
 ```
 
 First, create a `code.tar.gz` archive containing the `connection.json` file:

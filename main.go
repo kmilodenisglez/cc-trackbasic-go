@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/hyperledger/fabric-chaincode-go/shim"
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
-	"github.com/ic-matcom/cc-template-go/chaincode"
+	"github.com/ic-matcom/cc-trackdemo-go/contracts/trackdemo"
 	"io/ioutil"
 	"log"
 	"os"
@@ -18,11 +18,15 @@ type serverConfig struct {
 func main() {
 	// See chaincode.env.example
 	config := serverConfig{
-		CCID:    os.Getenv("CHAINCODE_ID"),
-		Address: os.Getenv("CHAINCODE_SERVER_ADDRESS"),
+		CCID:    "basic_1.0:e72dc3806f6d2a601638d76f26a1d613beb53348f9402123074e39f326880524",
+		Address: "127.0.0.1:9999",
 	}
 
-	assetChaincode, err := contractapi.NewChaincode(&chaincode.SmartContract{})
+	contractLeasingTerm := new(trackdemo.SmartContract)
+	contractLeasingTerm.Name = trackdemo.ContractNameLeaseTerm
+	contractLeasingTerm.Info.Version = "0.1"
+
+	assetChaincode, err := contractapi.NewChaincode(contractLeasingTerm)
 
 	if err != nil {
 		log.Panicf("error create asset-transfer-basic chaincode: %s", err)
